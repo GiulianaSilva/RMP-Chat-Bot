@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3
 
 // CORS Middleware
 const corsOptions = {
-  origin: 'https://yourfrontenddomain.com', // Replace with your Wix domain or '*' for all domains
+  origin: '*', // Replace with your Wix domain or '*' for all domains
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
 };
