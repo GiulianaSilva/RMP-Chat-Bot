@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "esModuleInterop": true,
     "target": "ES6",
-    "moduleResolution": "node"
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["*.ts"],  // This will include all TypeScript files in the root folder
+  "exclude": ["node_modules", "dist"]
 }
+
 
 
 
