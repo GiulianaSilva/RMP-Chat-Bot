@@ -8,18 +8,19 @@ const app = express();
 const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3000 for local
 
 // CORS Middleware
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests from any origin, including 'null' (like local file://)
-    callback(null, true);
-  },
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-};
-
-
-app.use(cors());  // Apply CORS with the defined options
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     // Allow requests from any origin, including 'null' (like local file://)
+//     callback(null, true);
+//   },
+//   methods: ['GET', 'POST'],
+//   allowedHeaders: ['Content-Type'],
+// };
+const cors = require('cors');
+app.use(cors()); 
 app.use(bodyParser.json());
+
+
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
