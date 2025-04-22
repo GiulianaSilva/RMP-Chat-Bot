@@ -8,8 +8,10 @@ const app = express();
 const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3000 for local
 
 // Middleware
+const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
+
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
