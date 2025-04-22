@@ -7,17 +7,22 @@ const { GoogleGenAI, HarmBlockThreshold, HarmCategory } = require('@google/genai
 const app = express();
 const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3000 for local
 
-// CORS Middleware
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     // Allow requests from any origin, including 'null' (like local file://)
-//     callback(null, true);
-//   },
-//   methods: ['GET', 'POST'],
-//   allowedHeaders: ['Content-Type'],
-// };
-// const cors = require('cors');
-// app.use(cors()); 
+const cors = require('cors');
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests from any origin including local files (origin === null)
+    if (!origin || origin === 'null') {
+      callback(null, true);
+    } else {
+      callback(null, true); // You can also restrict to specific domains later if needed
+    }
+  },
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 
