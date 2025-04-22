@@ -3,11 +3,13 @@
     "target": "ES6",
     "module": "commonjs",
     "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true
   },
-  "include": ["*.ts"],  // This will include all TypeScript files in the root folder
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
+
 
 
 
