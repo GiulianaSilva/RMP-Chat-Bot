@@ -3,7 +3,7 @@ import { writeFile } from 'fs';
 
 // Import necessary components from the @google/genai library
 import { GoogleGenAI, HarmBlockThreshold, HarmCategory } from '@google/genai';
-import mime from 'mime-types';
+import * as mime from 'mime-types';
 
 async function saveBinaryFile(fileName: string, content: Buffer) {
   writeFile(fileName, content, 'utf8', (err) => {
