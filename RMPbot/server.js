@@ -18,7 +18,7 @@ const corsOptions = {
 };
 
 
-app.use(cors(corsOptions));  // Apply CORS with the defined options
+app.use(cors());  // Apply CORS with the defined options
 app.use(bodyParser.json());
 
 const ai = new GoogleGenAI({
