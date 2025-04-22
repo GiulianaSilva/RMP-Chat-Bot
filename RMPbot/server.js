@@ -16,8 +16,8 @@ const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3
 //   methods: ['GET', 'POST'],
 //   allowedHeaders: ['Content-Type'],
 // };
-const cors = require('cors');
-app.use(cors()); 
+// const cors = require('cors');
+// app.use(cors()); 
 app.use(bodyParser.json());
 
 
