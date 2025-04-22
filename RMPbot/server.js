@@ -7,11 +7,15 @@ const { GoogleGenAI, HarmBlockThreshold, HarmCategory } = require('@google/genai
 const app = express();
 const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3000 for local
 
-// Middleware
-const cors = require('cors');
-app.use(cors());
-app.use(bodyParser.json());
+// CORS Middleware
+const corsOptions = {
+  origin: 'https://yourfrontenddomain.com', // Replace with your Wix domain or '*' for all domains
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+};
 
+app.use(cors(corsOptions));  // Apply CORS with the defined options
+app.use(bodyParser.json());
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -63,6 +67,11 @@ app.post('/chat', async (req, res) => {
     res.status(500).json({ reply: 'Oops! Something went wrong.' });
   }
 });
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
