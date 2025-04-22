@@ -5,7 +5,7 @@ require('dotenv').config();
 const { GoogleGenAI, HarmBlockThreshold, HarmCategory } = require('@google/genai');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;  // Use the Railway port or fallback to 3000 for local
 
 // Middleware
 app.use(cors());
@@ -50,7 +50,6 @@ app.post('/chat', async (req, res) => {
       contents: [{ role: 'user', parts: [{ text: userMessage }] }],
     });
 
-    // Now we're directly accessing the response content
     const reply = response.candidates && response.candidates[0].content
       ? response.candidates[0].content.parts[0].text
       : 'Sorry, I did not understand that.';
@@ -66,3 +65,4 @@ app.post('/chat', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
