@@ -26,7 +26,7 @@ This will install all necessary dependencies for both the backend (server) and f
 
 <h3>Step 3: </h3> 
 Set Up Environment Variables
-Create a .env file in the root directory of the project. This file will store environment variables such as API keys or ports. 
+Create a .env file in the root directory of the project. This file will store environment variables such as API keys. 
 
 
 <h3>Step 4:</h3>
@@ -35,8 +35,11 @@ To start the backend and frontend, follow these steps:
 
 1. Start the Backend:
 In your terminal or command prompt, run the backend server with the following command:
-
 <h4>node server/server.js</h4>
+
+If server has started succesfully you should see a message similar to
+Server running at http://localhost:3000
+
 
 
 3. Open the Frontend:
