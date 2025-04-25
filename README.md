@@ -2,38 +2,6 @@ RMPbot
 Description
 RMPbot is a chatbot built using Node.js, TypeScript, and a simple frontend interface. It allows users to interact with a chatbot via a web page and communicates with the backend server to process requests.
 
-Features
-Chatbot API for interaction with the backend
-
-Basic frontend UI built with HTML for user interaction
-
-Backend built using Node.js and TypeScript
-
-Frontend can be opened directly from a browser
-
-Tech Stack
-Backend: Node.js, Express, TypeScript
-
-Frontend: HTML (ChatBox.html)
-
-Package Manager: npm
-
-Project Structure
-bash
-Copy
-Edit
-RMPbot/
-├── client/                     # Frontend files (HTML)
-│   └── ChatBox.html            # Frontend entry point
-├── server/                     # Backend files (Node.js/Express)
-│   ├── ChatBotRMP.ts           # Chatbot logic
-│   ├── server.js               # Server setup
-├── .env                        # Environment variables (API keys, etc.)
-├── package.json                # Project dependencies
-├── package-lock.json           # Lock file for dependencies
-├── tsconfig.json               # TypeScript configuration
-└── README.md                   # Project documentation
-
 Installation and Running the Application
 Prerequisites
 Before running the application, make sure you have the following installed on your machine:
