@@ -43,6 +43,6 @@ Server running at http://localhost:3000
 
 
 3. Open the Frontend:
-To interact with the chatbot, open the client/ChatBox.html file in your browser. You can simply double-click the file to open it in your default browser, or you can serve it with a local server if you prefer.
+To interact with the chatbot, Make sure line 108 in the ChatBox.html file has the adress that corresponds with the one your server is running on. Then open the client/ChatBox.html file in your browser. You can simply double-click the file to open it in your default browser, or you can serve it with a local server if you prefer.
 
 
