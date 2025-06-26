@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMP Chat Widget Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .instructions h2 {
+            margin-top: 0;
+        }
+        .instructions ol {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .note {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 RMP Chat Widget</h1>
+        <p>Testing the Respect Me Project chatbot widget integration</p>
+        
+        <div class="instructions">
+            <h2>Test Instructions:</h2>
+            <ol>
+                <li>Look for the blue chat bubble in the bottom-right corner</li>
+                <li>Click on the chat bubble to open the chat window</li>
+                <li>Type a message and press Enter or click Send</li>
+                <li>Wait for the bot response (you'll see typing dots)</li>
+                <li>Try asking questions like "What is the Respect Me Project?"</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> Make sure your server is running on localhost:3000 for local testing, 
+            or update the serverUrl in the widget configuration for production.
+        </div>
+
+        <div class="note">
+            <strong>For Wix Integration:</strong> Once this works locally, follow the hosting guide 
+            to deploy your server and add the widget to your Wix website.
+        </div>
+    </div>
+
+    <!-- Load the chat widget -->
+    <script>
+        // For local testing, use the development version
+        // For production, you'll use the hosted version
+        const script = document.createElement('script');
+        script.src = './chat-widget.js'; // Local development version
+        // script.src = 'https://your-server-url.com/widget.js'; // Production version
+        document.head.appendChild(script);
+    </script>
+</body>
+</html> 

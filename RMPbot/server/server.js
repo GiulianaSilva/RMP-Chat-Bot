@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 const { GoogleGenAI, HarmBlockThreshold, HarmCategory } = require('@google/genai');
 
@@ -26,7 +27,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); 
-app.use(bodyParser.json({ limit: '10mb' })); 
+app.use(bodyParser.json({ limit: '10mb' }));
+
+app.use('/widget', express.static(path.join(__dirname, '../client')));
+
+app.get('/widget.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.sendFile(path.join(__dirname, '../client/rmp-chat-widget-production.js'));
+}); 
 
 function rateLimitMiddleware(req, res, next) {
   const clientIP = req.ip || req.connection.remoteAddress || 'unknown';

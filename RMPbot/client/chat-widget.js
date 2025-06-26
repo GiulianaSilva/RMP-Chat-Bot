@@ -110,14 +110,40 @@ class ChatWidget {
             }
 
             .rmp-bot-message {
-                background: #f0f2f5;
+                background: #ffffff;
+                color: #333333;
                 margin-right: auto;
+                border: 1px solid #e1e8ed;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             }
 
             .rmp-user-message {
                 background: #007bff;
                 color: white;
                 margin-left: auto;
+            }
+
+            .rmp-typing span {
+                display: inline-block;
+                animation: typing 1.4s infinite;
+                font-size: 18px;
+            }
+
+            .rmp-typing span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .rmp-typing span:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes typing {
+                0%, 60%, 100% {
+                    opacity: 0.3;
+                }
+                30% {
+                    opacity: 1;
+                }
             }
 
             .rmp-chat-input {
@@ -182,12 +208,40 @@ class ChatWidget {
             bubble.style.display = 'flex';
         });
 
-        const sendMessage = () => {
+        const sendMessage = async () => {
             const message = userInput.value.trim();
             if (message) {
                 this.addMessage(message, 'user');
                 userInput.value = '';
-                // backend call
+                
+                // Show typing indicator
+                this.showTypingIndicator();
+                
+                try {
+                    // Send message to your chatbot backend
+                    const response = await fetch('http://localhost:3000/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Remove typing indicator and add bot response
+                    this.removeTypingIndicator();
+                    this.addMessage(data.reply, 'bot');
+                    
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                    this.removeTypingIndicator();
+                    this.addMessage('Sorry, I\'m having trouble connecting right now. Please try again.', 'bot');
+                }
             }
         };
 
@@ -206,6 +260,23 @@ class ChatWidget {
         messageDiv.textContent = text;
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    showTypingIndicator() {
+        const messagesContainer = document.getElementById('rmpChatMessages');
+        const typingDiv = document.createElement('div');
+        typingDiv.id = 'rmp-typing-indicator';
+        typingDiv.className = 'rmp-message rmp-bot-message rmp-typing';
+        typingDiv.innerHTML = '<span>•</span><span>•</span><span>•</span>';
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    removeTypingIndicator() {
+        const typingIndicator = document.getElementById('rmp-typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
     }
 }
 
