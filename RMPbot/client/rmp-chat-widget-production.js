@@ -2,9 +2,19 @@
 (function() {
     'use strict';
     
-    // Configuration - You can change this URL to your hosted server
+    // Configuration - Auto-detects server URL or uses default
     const CONFIG = {
-        serverUrl: 'https://your-server-domain.com', // When finalized change it here
+        serverUrl: (function() {
+            // Try to auto-detect server URL from the script source
+            const scripts = document.getElementsByTagName('script');
+            for (let script of scripts) {
+                if (script.src && script.src.includes('widget.js')) {
+                    return script.src.replace('/widget.js', '');
+                }
+            }
+            // Fallback - change this to your actual server URL
+            return 'https://your-server-domain.com';
+        })(),
         chatTitle: 'Chat with us',
         welcomeMessage: 'Hello! How can I help you today?',
         primaryColor: '#007bff'
