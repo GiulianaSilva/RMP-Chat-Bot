@@ -1,18 +1,13 @@
-// RMP Chat Widget - Production Version
 (function() {
     'use strict';
-    
-    // Configuration - Auto-detects server URL or uses default
     const CONFIG = {
         serverUrl: (function() {
-            // Try to auto-detect server URL from the script source
             const scripts = document.getElementsByTagName('script');
             for (let script of scripts) {
                 if (script.src && script.src.includes('widget.js')) {
                     return script.src.replace('/widget.js', '');
                 }
             }
-            // Fallback - change this to your actual server URL
             return 'https://your-server-domain.com';
         })(),
         chatTitle: 'Chat with us',
@@ -54,7 +49,6 @@
                 </div>
             `;
 
-            // Add styles
             const styles = document.createElement('style');
             styles.textContent = `
                 .rmp-chat-widget {
@@ -281,7 +275,6 @@
         }
 
         adjustBrightness(hex, percent) {
-            // Simple color adjustment function
             const num = parseInt(hex.replace("#", ""), 16);
             const amt = Math.round(2.55 * percent);
             const R = (num >> 16) + amt;
@@ -360,7 +353,6 @@
             chatWindow.style.display = 'flex';
             bubble.style.display = 'none';
             
-            // Focus on input
             setTimeout(() => {
                 document.getElementById('rmpUserInput').focus();
             }, 300);
@@ -401,7 +393,6 @@
         }
     }
 
-    // Initialize the chat widget when DOM is ready
     function initRMPChatWidget(config) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -412,10 +403,8 @@
         }
     }
 
-    // Make it available globally
     window.RMPChatWidget = RMPChatWidget;
     window.initRMPChatWidget = initRMPChatWidget;
 
-    // Auto-initialize if no custom config needed
     initRMPChatWidget();
 })(); 

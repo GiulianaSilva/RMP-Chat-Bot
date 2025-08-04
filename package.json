@@ -7,10 +7,10 @@
     "dev": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["chatbot", "ai", "express", "gemini"],
-  "author": "Respect Me Project",
+  "keywords": ["chatbot", "ai", "express", "gemini", "nodejs", "javascript", "widget"],
+  "author": "Andrew (RMP-Chat-Bot Fork)",
   "license": "ISC",
-  "description": "RMP AI Chatbot with web widget for Wix integration",
+  "description": "Production-ready AI chatbot system with web widget integration for websites",
   "dependencies": {
     "@google/genai": "^0.9.0",
     "cors": "^2.8.5",

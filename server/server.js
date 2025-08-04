@@ -101,10 +101,9 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-// Root route for Railway domain
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'RMP ChatBot API is running!',
+    message: 'RMP ChatBot API is running',
     endpoints: {
       health: '/health',
       chat: '/chat',
@@ -120,7 +119,6 @@ app.get('/health', (req, res) => {
 
 app.post('/chat', rateLimitMiddleware, validateInput, async (req, res) => {
   const userMessage = req.body.message.trim();
-  console.log(`[${new Date().toISOString()}] Received message:`, userMessage.substring(0, 100) + (userMessage.length > 100 ? '...' : ''));
 
   try {
     if (!process.env.GEMINI_API_KEY) {
@@ -177,7 +175,6 @@ app.post('/chat', rateLimitMiddleware, validateInput, async (req, res) => {
       throw new Error('Empty response from AI model');
     }
 
-    console.log(`[${new Date().toISOString()}] Bot reply length:`, reply.length);
     res.json({ reply: reply.trim() });
 
   } catch (error) {
@@ -214,20 +211,20 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`\n🚀 RMP ChatBot Server Started`);
-  console.log(`📍 Server running at: http://localhost:${port}`);
-  console.log(`🔗 Health check: http://localhost:${port}/health`);
-  console.log(`📧 Chat endpoint: http://localhost:${port}/chat`);
-  console.log(`⏰ Started at: ${new Date().toISOString()}\n`);
+  console.log(`RMP ChatBot Server Started`);
+  console.log(`Server running at: http://localhost:${port}`);
+  console.log(`Health check: http://localhost:${port}/health`);
+  console.log(`Chat endpoint: http://localhost:${port}/chat`);
+  console.log(`Started at: ${new Date().toISOString()}`);
 });
 
 process.on('SIGINT', () => {
-  console.log('\n🛑 Shutting down server gracefully...');
+  console.log('Shutting down server gracefully');
   process.exit(0);
 });
 
 process.on('SIGTERM', () => {
-  console.log('\n🛑 Shutting down server gracefully...');
+  console.log('Shutting down server gracefully');
   process.exit(0);
 });
 
