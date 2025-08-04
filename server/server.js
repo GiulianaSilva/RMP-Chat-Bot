@@ -101,6 +101,19 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+// Root route for Railway domain
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'RMP ChatBot API is running!',
+    endpoints: {
+      health: '/health',
+      chat: '/chat',
+      widget: '/widget.js'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
