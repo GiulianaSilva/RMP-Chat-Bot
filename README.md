@@ -77,18 +77,18 @@ The server will start at `http://localhost:3000`
 
 ## Website Integration
 
+### General Website Integration
+Add the script tag to any HTML page:
+```html
+<script src="https://your-railway-url.com/widget.js"></script>
+```
+
 ### Wix Integration
 To add the chatbot to your Wix website:
 
 1. Open Wix website editor
 2. Go to **Settings → Custom Code**
 3. Add this script to the header:
-```html
-<script src="https://your-railway-url.com/widget.js"></script>
-```
-
-### General Website Integration
-Add the script tag to any HTML page:
 ```html
 <script src="https://your-railway-url.com/widget.js"></script>
 ```
