@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Live Chatbot</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .test-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .test-btn:hover {
+            background: #45a049;
+        }
+        .load-btn {
+            background: #2196F3;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .load-btn:hover {
+            background: #1976D2;
+        }
+        .result {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: left;
+        }
+        .success { border-left: 4px solid #4CAF50; }
+        .error { border-left: 4px solid #f44336; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Test Your Live Chatbot</h1>
+        
+        <div class="status">
+            <h2>Step 1: Enter Your Railway URL</h2>
+            <input type="text" class="url-input" id="serverUrl" 
+                   placeholder="https://yourapp-production-1234.up.railway.app"
+                   value="">
+            <br>
+            <button class="test-btn" onclick="testServer()">Test Server</button>
+            <div id="serverResult"></div>
+        </div>
+
+        <div class="status">
+            <h2>Step 2: Load Your Chat Widget</h2>
+            <button class="load-btn" onclick="loadWidget()">Load Chat Widget</button>
+            <div id="widgetResult"></div>
+        </div>
+
+        <div class="status">
+            <h2>Step 3: Test the Chat</h2>
+            <p>Look for the blue chat bubble in the bottom-right corner!</p>
+            <p>Click it and try sending a message.</p>
+        </div>
+    </div>
+
+    <script>
+        async function testServer() {
+            const url = document.getElementById('serverUrl').value;
+            const resultDiv = document.getElementById('serverResult');
+            
+            if (!url) {
+                resultDiv.innerHTML = '<div class="result error">Please enter your Railway URL first!</div>';
+                return;
+            }
+
+            try {
+                resultDiv.innerHTML = '<div class="result">Testing server...</div>';
+                
+                const response = await fetch(url + '/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="result success">✅ Server is working! Status: ' + data.status + '</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ Server responded but with error: ' + response.status + '</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="result error">❌ Cannot reach server. Check your URL or wait for Railway to deploy.</div>';
+            }
+        }
+
+        function loadWidget() {
+            const url = document.getElementById('serverUrl').value;
+            const resultDiv = document.getElementById('widgetResult');
+            
+            if (!url) {
+                resultDiv.innerHTML = '<div class="result error">Please enter your Railway URL first!</div>';
+                return;
+            }
+
+            // Remove existing widget if any
+            const existingWidget = document.querySelector('.rmp-chat-widget');
+            if (existingWidget) {
+                existingWidget.remove();
+            }
+
+            // Remove existing script if any
+            const existingScript = document.querySelector('script[src*="widget.js"]');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+            try {
+                const script = document.createElement('script');
+                script.src = url + '/widget.js';
+                script.onload = function() {
+                    resultDiv.innerHTML = '<div class="result success">✅ Chat widget loaded! Look for the blue bubble in the bottom-right corner.</div>';
+                };
+                script.onerror = function() {
+                    resultDiv.innerHTML = '<div class="result error">❌ Failed to load widget. Check your URL and make sure the server is running.</div>';
+                };
+                
+                // Update the widget config with the correct server URL
+                script.onload = function() {
+                    // The widget should auto-initialize, but we can update its config
+                    if (window.RMPChatWidget) {
+                        resultDiv.innerHTML = '<div class="result success">✅ Chat widget loaded! Look for the blue bubble in the bottom-right corner.</div>';
+                    }
+                };
+                
+                document.head.appendChild(script);
+                resultDiv.innerHTML = '<div class="result">Loading widget...</div>';
+                
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="result error">❌ Error loading widget: ' + error.message + '</div>';
+            }
+        }
+
+        // Auto-fill with localhost for development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            document.getElementById('serverUrl').value = 'http://localhost:3000';
+        }
+    </script>
+</body>
+</html>

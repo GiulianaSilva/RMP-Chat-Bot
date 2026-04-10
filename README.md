@@ -1,48 +1,184 @@
 
-<h1>Respect Me Project Chatbot</h1>
+# RMP Chat Bot
 
+A production-ready AI chatbot system with web widget integration for websites. Built with Node.js and Google Gemini AI.
 
-<h3>Description</h3>
-RMPbot is a chatbot built using Node.js, TypeScript, and a frontend interface. It allows users to interact with a chatbot via a web page and communicates with the backend server to process requests.
+**Project:** RMP-Chat-Bot  
+**Forked by:** Andrew  
+**Status:** Production Ready
 
-<h2>Installation and Running the Application</h2>
-<h3>Prerequisites</h3>
+## Overview
 
-Before running the application, make sure you have the following installed on your machine:
+This project provides a complete chatbot solution consisting of:
+- Backend API server powered by Google Gemini AI
+- Frontend web widget for website integration
+- Production deployment on Railway
+- Wix website integration support
 
-Node.js: Download Node.js (Make sure you have version 14.x or higher)
+## Architecture
 
-<h3>Step 1:</h3>
-Clone the Repository
+### Backend (Node.js + Express)
+- RESTful API with `/chat` endpoint
+- Google Gemini AI integration
+- Rate limiting and input validation
+- CORS support for cross-origin requests
+- Health check endpoint
 
-<h3>Step 2:</h3> 
-Install Dependencies
-Run the following command in your terminal to install the required dependencies for the project:
-This will install all necessary dependencies for both the backend (server) and frontend (client).
+### Frontend (Vanilla JavaScript)
+- Self-contained chat widget
+- Auto-detecting server configuration
+- Responsive design with mobile support
+- Real-time typing indicators
+- Professional UI/UX
 
-<h4>npm install</h4>
+## Installation
 
+### Prerequisites
+- Node.js (version 14.x or higher)
+- Google Gemini API key
+- Git
 
+### Setup
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd RMP-Chat-Bot
+```
 
-<h3>Step 3: </h3> 
-Set Up Environment Variables
-Create a .env file in the root directory of the project. This file will store environment variables such as API keys. 
+2. Install dependencies
+```bash
+npm install
+```
 
+3. Configure environment variables
+Create a `.env` file in the root directory:
+```env
+GEMINI_API_KEY=your_google_gemini_api_key_here
+PORT=3000
+```
 
-<h3>Step 4:</h3>
-Run the Application
-To start the backend and frontend, follow these steps:
+4. Start the server
+```bash
+npm start
+```
 
-1. Start the Backend:
-In your terminal or command prompt, run the backend server with the following command:
-<h4>node server/server.js</h4>
+The server will start at `http://localhost:3000`
 
-If server has started succesfully you should see a message similar to
-Server running at http://localhost:3000
+## Deployment
 
+### Railway Deployment
+1. Connect your GitHub repository to Railway
+2. Add environment variable: `GEMINI_API_KEY`
+3. Railway will automatically detect and deploy the Node.js application
 
+### Environment Variables
+- `GEMINI_API_KEY`: Your Google Gemini API key (required)
+- `PORT`: Server port (default: 3000, Railway sets automatically)
 
-3. Open the Frontend:
-To interact with the chatbot, Make sure line 108 in the ChatBox.html file has the adress that corresponds with the one your server is running on. Then open the client/ChatBox.html file in your browser. You can simply double-click the file to open it in your default browser, or you can serve it with a local server if you prefer.
+## Website Integration
 
+### Wix Integration
+To add the chatbot to your Wix website:
 
+1. Open Wix website editor
+2. Go to **Settings → Custom Code**
+3. Add this script to the header:
+```html
+<script src="https://your-railway-url.com/widget.js"></script>
+```
+
+### General Website Integration
+Add the script tag to any HTML page:
+```html
+<script src="https://your-railway-url.com/widget.js"></script>
+```
+
+## API Endpoints
+
+### POST /chat
+Processes chat messages and returns AI responses.
+
+**Request:**
+```json
+{
+  "message": "Hello, how are you?"
+}
+```
+
+**Response:**
+```json
+{
+  "reply": "Hello! I'm doing well, thank you for asking. How can I help you today?"
+}
+```
+
+### GET /health
+Returns server health status.
+
+**Response:**
+```json
+{
+  "status": "OK",
+  "timestamp": "2025-08-04T14:04:36.202Z"
+}
+```
+
+### GET /widget.js
+Serves the chat widget JavaScript file for website integration.
+
+## File Structure
+
+```
+RMP-Chat-Bot/
+├── server/
+│   └── server.js          # Main server application
+├── client/
+│   ├── rmp-chat-widget-production.js  # Production widget
+│   └── test-live.html     # Testing interface
+├── package.json           # Dependencies and scripts
+├── railway.json          # Railway deployment config
+├── verify-setup.js       # Setup verification script
+└── README.md             # This file
+```
+
+## Development
+
+### Local Development
+1. Start the server: `npm start`
+2. Open `client/test-live.html` in your browser
+3. Test the chat functionality
+
+### Widget Configuration
+The widget automatically detects the server URL from the script source. For custom configuration:
+
+```javascript
+window.initRMPChatWidget({
+    chatTitle: 'Your Custom Title',
+    welcomeMessage: 'Your custom welcome message',
+    primaryColor: '#your-brand-color'
+});
+```
+
+## Security Features
+
+- Rate limiting (20 requests per minute per IP)
+- Input validation and sanitization
+- CORS configuration
+- Content safety filtering via Google Gemini
+- Error handling and logging
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## License
+
+This project is licensed under the ISC License.
+
+## Support
+
+For technical support or questions, please refer to the codebase documentation or create an issue in the repository.
